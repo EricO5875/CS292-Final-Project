@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.grpMusicControl = new System.Windows.Forms.GroupBox();
-            this.chkLoop = new System.Windows.Forms.CheckBox();
             this.chkShuffle = new System.Windows.Forms.CheckBox();
+            this.chkLoop = new System.Windows.Forms.CheckBox();
+            this.grpMusicControl = new System.Windows.Forms.GroupBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -43,16 +43,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // grpMusicControl
+            // chkShuffle
             // 
-            this.grpMusicControl.Controls.Add(this.chkLoop);
-            this.grpMusicControl.Controls.Add(this.chkShuffle);
-            this.grpMusicControl.Location = new System.Drawing.Point(193, 30);
-            this.grpMusicControl.Name = "grpMusicControl";
-            this.grpMusicControl.Size = new System.Drawing.Size(156, 102);
-            this.grpMusicControl.TabIndex = 1;
-            this.grpMusicControl.TabStop = false;
-            this.grpMusicControl.Text = "Music Control";
+            this.chkShuffle.AutoSize = true;
+            this.chkShuffle.Location = new System.Drawing.Point(6, 27);
+            this.chkShuffle.Name = "chkShuffle";
+            this.chkShuffle.Size = new System.Drawing.Size(59, 17);
+            this.chkShuffle.TabIndex = 0;
+            this.chkShuffle.Text = "Shuffle";
+            this.chkShuffle.UseVisualStyleBackColor = true;
             // 
             // chkLoop
             // 
@@ -64,15 +63,16 @@
             this.chkLoop.Text = "Loop";
             this.chkLoop.UseVisualStyleBackColor = true;
             // 
-            // chkShuffle
+            // grpMusicControl
             // 
-            this.chkShuffle.AutoSize = true;
-            this.chkShuffle.Location = new System.Drawing.Point(6, 27);
-            this.chkShuffle.Name = "chkShuffle";
-            this.chkShuffle.Size = new System.Drawing.Size(59, 17);
-            this.chkShuffle.TabIndex = 0;
-            this.chkShuffle.Text = "Shuffle";
-            this.chkShuffle.UseVisualStyleBackColor = true;
+            this.grpMusicControl.Controls.Add(this.chkLoop);
+            this.grpMusicControl.Controls.Add(this.chkShuffle);
+            this.grpMusicControl.Location = new System.Drawing.Point(193, 30);
+            this.grpMusicControl.Name = "grpMusicControl";
+            this.grpMusicControl.Size = new System.Drawing.Size(156, 102);
+            this.grpMusicControl.TabIndex = 1;
+            this.grpMusicControl.TabStop = false;
+            this.grpMusicControl.Text = "Music Control";
             // 
             // btnPlay
             // 
@@ -159,7 +159,6 @@
             this.Controls.Add(this.grpMusicControl);
             this.Name = "Form1";
             this.Text = "Music Player";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMusicControl.ResumeLayout(false);
             this.grpMusicControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -170,9 +169,9 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grpMusicControl;
-        private System.Windows.Forms.CheckBox chkLoop;
         private System.Windows.Forms.CheckBox chkShuffle;
+        private System.Windows.Forms.CheckBox chkLoop;
+        private System.Windows.Forms.GroupBox grpMusicControl;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnExit;

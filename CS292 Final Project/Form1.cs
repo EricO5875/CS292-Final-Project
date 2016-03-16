@@ -16,16 +16,5 @@ namespace CS292_Final_Project
         {
             InitializeComponent();
         }
-
-        private void readMusic()
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }
