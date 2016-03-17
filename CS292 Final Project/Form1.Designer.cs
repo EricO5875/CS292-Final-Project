@@ -40,6 +40,10 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.lblMusicFilePath = new System.Windows.Forms.Label();
             this.btnLoadMusic = new System.Windows.Forms.Button();
+            this.colFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAlbum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpMusicControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -106,7 +110,15 @@
             // 
             // dgv
             // 
+            this.dgv.AllowUserToAddRows = false;
+            this.dgv.AllowUserToDeleteRows = false;
+            this.dgv.AllowUserToResizeRows = false;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colFileName,
+            this.colTitle,
+            this.colYear,
+            this.colAlbum});
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.Location = new System.Drawing.Point(355, 12);
             this.dgv.Name = "dgv";
@@ -121,6 +133,7 @@
             this.btnEditInfo.TabIndex = 7;
             this.btnEditInfo.Text = "Edit Info";
             this.btnEditInfo.UseVisualStyleBackColor = true;
+            this.btnEditInfo.Click += new System.EventHandler(this.btnEditInfo_Click);
             // 
             // txtFilePath
             // 
@@ -157,6 +170,26 @@
             this.btnLoadMusic.UseVisualStyleBackColor = true;
             this.btnLoadMusic.Click += new System.EventHandler(this.btnLoadMusic_Click);
             // 
+            // colFileName
+            // 
+            this.colFileName.HeaderText = "File Name";
+            this.colFileName.Name = "colFileName";
+            // 
+            // colTitle
+            // 
+            this.colTitle.HeaderText = "Title";
+            this.colTitle.Name = "colTitle";
+            // 
+            // colYear
+            // 
+            this.colYear.HeaderText = "Year";
+            this.colYear.Name = "colYear";
+            // 
+            // colAlbum
+            // 
+            this.colAlbum.HeaderText = "Album";
+            this.colAlbum.Name = "colAlbum";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,6 +207,7 @@
             this.Controls.Add(this.grpMusicControl);
             this.Name = "Form1";
             this.Text = "Music Player";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMusicControl.ResumeLayout(false);
             this.grpMusicControl.PerformLayout();
@@ -197,6 +231,10 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Label lblMusicFilePath;
         private System.Windows.Forms.Button btnLoadMusic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAlbum;
     }
 }
 
