@@ -34,13 +34,14 @@
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgv = new System.Windows.Forms.DataGridView();
             this.btnEditInfo = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtFilePath = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.lblMusicFilePath = new System.Windows.Forms.Label();
+            this.btnLoadMusic = new System.Windows.Forms.Button();
             this.grpMusicControl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // chkShuffle
@@ -82,6 +83,7 @@
             this.btnPlay.TabIndex = 2;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
             // btnPause
             // 
@@ -100,14 +102,16 @@
             this.btnExit.TabIndex = 4;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // dataGridView1
+            // dgv
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(355, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(480, 245);
-            this.dataGridView1.TabIndex = 6;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgv.Location = new System.Drawing.Point(355, 12);
+            this.dgv.Name = "dgv";
+            this.dgv.Size = new System.Drawing.Size(480, 245);
+            this.dgv.TabIndex = 6;
             // 
             // btnEditInfo
             // 
@@ -118,12 +122,12 @@
             this.btnEditInfo.Text = "Edit Info";
             this.btnEditInfo.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtFilePath
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 39);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(159, 20);
-            this.textBox1.TabIndex = 8;
+            this.txtFilePath.Location = new System.Drawing.Point(12, 39);
+            this.txtFilePath.Name = "txtFilePath";
+            this.txtFilePath.Size = new System.Drawing.Size(159, 20);
+            this.txtFilePath.TabIndex = 8;
             // 
             // btnBrowse
             // 
@@ -143,25 +147,37 @@
             this.lblMusicFilePath.TabIndex = 10;
             this.lblMusicFilePath.Text = "Music File Path:";
             // 
+            // btnLoadMusic
+            // 
+            this.btnLoadMusic.Location = new System.Drawing.Point(383, 273);
+            this.btnLoadMusic.Name = "btnLoadMusic";
+            this.btnLoadMusic.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadMusic.TabIndex = 11;
+            this.btnLoadMusic.Text = "Load Music";
+            this.btnLoadMusic.UseVisualStyleBackColor = true;
+            this.btnLoadMusic.Click += new System.EventHandler(this.btnLoadMusic_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 325);
+            this.Controls.Add(this.btnLoadMusic);
             this.Controls.Add(this.lblMusicFilePath);
             this.Controls.Add(this.btnBrowse);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.btnEditInfo);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgv);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.grpMusicControl);
             this.Name = "Form1";
             this.Text = "Music Player";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMusicControl.ResumeLayout(false);
             this.grpMusicControl.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,11 +191,12 @@
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.Button btnEditInfo;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtFilePath;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Label lblMusicFilePath;
+        private System.Windows.Forms.Button btnLoadMusic;
     }
 }
 
