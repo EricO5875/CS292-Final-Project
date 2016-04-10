@@ -25,6 +25,7 @@ namespace CS292_Final_Project
         IWavePlayer waveOutDevice;
         AudioFileReader audioFileReader;
         WaveChannel32 wave;
+        bool musicAdded = false;
 
         TagLib.File tagFile = TagLib.File.Create("Green Forest.mp3");
 
@@ -79,13 +80,12 @@ namespace CS292_Final_Project
                     string year = tagFile.Tag.Year.ToString();
                     string album = tagFile.Tag.Album;
                     string[] genre = tagFile.Tag.Genres;
-                    
-                    //                    string lyrics = tagFile.Tag;
-                    //                    Console.WriteLine(lyrics);
-    //                Music music = new Music(fileName, title, artist, year, album, genre);
+                    string trackNumber = tagFile.Tag.Track.ToString();
+                    string filePath = txtFilePath.Text;
+                    Music temp = new Music(fileName, title, artist, year, album, trackNumber, genre, filePath);
 
-                    
-                    displayData(fileName, title, artist, year, album, genre);
+                    music.Add(temp);
+                    displayData(temp);
                 }
             } catch
             {
@@ -94,24 +94,28 @@ namespace CS292_Final_Project
             }
         }
 
-        private void displayData(string fileName, string title, string[] artist, string year, string album, string[] genre)
+        private void displayData(Music temp)
         {
             string genreString = "";
-            foreach (string s in genre)
-            {
-                genreString += s + ", ";
-            }
-            genreString = genreString.Substring(0, genreString.Length - 2);
+            //foreach (string s in temp.Genres)
+            //{
+            //    genreString += s + ", ";
+            //}
+            //if (!genreString.Equals("")) { 
+            //    genreString = genreString.Substring(0, genreString.Length - 2);
+            //}
 
-            string artistString = "";
-            foreach (string s in artist)
-            {
-                artistString += s + ", ";
-            }
-            artistString = artistString.Substring(0, artistString.Length - 2);
-
-            string[] row = new string[] { title, artistString, year, album, genreString, fileName };
-            dgv.Rows.Add(row);
+            //string artistString = "";
+            //foreach (string s in temp.Artist)
+            //{
+            //    artistString += s + ", ";
+            //}
+            //if (!artistString.Equals(""))
+            //{
+            //    artistString = artistString.Substring(0, artistString.Length - 2);
+            //}
+            //string[] row = new string[] { temp.Title, artistString, temp.Year, temp.Album, genreString, temp.FileName, temp.FilePath };
+            //dgv.Rows.Add(row);
 
         }
 
@@ -124,7 +128,7 @@ namespace CS292_Final_Project
                 String artist = m.Artist;
                 String year = m.Year;
                 String album = m.Album;
-                String genre = m.Genre;
+                String genre = m.Genres;
                 
 
             }
@@ -135,7 +139,6 @@ namespace CS292_Final_Project
             if (dataChanged)
             {
                 MessageBox.Show("There were some changes made to the database.  Would you like to save them?", "", MessageBoxButtons.YesNoCancel);
-
                 saveData();
             }
             
@@ -165,6 +168,28 @@ namespace CS292_Final_Project
                 Music temp = music[val1];
                 music[val1] = music[val2];
                 music[val2] = temp;
+            }
+        }
+
+        private void AddMusic()
+        {
+            
+        }
+
+        private void btnAddMusic_Click(object sender, EventArgs e)
+        {
+            Add_Music newForm = new Add_Music();
+            newForm.Show();
+            //String test = newForm.musicToAdd[0];
+            musicAdded = true;
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            if (musicAdded)
+            {
+                AddMusic();
+                musicAdded = false;
             }
         }
     }

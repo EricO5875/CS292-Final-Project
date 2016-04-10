@@ -35,6 +35,13 @@
             this.btnPause = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colArtist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAlbum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGenre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEditInfo = new System.Windows.Forms.Button();
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -44,12 +51,7 @@
             this.lblVolume = new System.Windows.Forms.Label();
             this.btnLower = new System.Windows.Forms.Button();
             this.btnRaise = new System.Windows.Forms.Button();
-            this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colArtist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAlbum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGenre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAddMusic = new System.Windows.Forms.Button();
             this.grpMusicControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.grpVolume.SuspendLayout();
@@ -127,12 +129,50 @@
             this.colYear,
             this.colAlbum,
             this.colGenre,
-            this.colFileName});
+            this.colFileName,
+            this.colFilePath});
             this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgv.Location = new System.Drawing.Point(12, 109);
             this.dgv.Name = "dgv";
             this.dgv.Size = new System.Drawing.Size(763, 245);
             this.dgv.TabIndex = 6;
+            // 
+            // colTitle
+            // 
+            this.colTitle.HeaderText = "Title";
+            this.colTitle.Name = "colTitle";
+            // 
+            // colArtist
+            // 
+            this.colArtist.HeaderText = "Artist";
+            this.colArtist.Name = "colArtist";
+            // 
+            // colYear
+            // 
+            this.colYear.HeaderText = "Year";
+            this.colYear.Name = "colYear";
+            // 
+            // colAlbum
+            // 
+            this.colAlbum.HeaderText = "Album";
+            this.colAlbum.Name = "colAlbum";
+            // 
+            // colGenre
+            // 
+            this.colGenre.HeaderText = "Genre";
+            this.colGenre.Name = "colGenre";
+            // 
+            // colFileName
+            // 
+            this.colFileName.HeaderText = "File Name";
+            this.colFileName.Name = "colFileName";
+            this.colFileName.Width = 200;
+            // 
+            // colFilePath
+            // 
+            this.colFilePath.HeaderText = "File Path";
+            this.colFilePath.Name = "colFilePath";
+            this.colFilePath.ReadOnly = true;
             // 
             // btnEditInfo
             // 
@@ -221,42 +261,22 @@
             this.btnRaise.UseVisualStyleBackColor = true;
             this.btnRaise.Click += new System.EventHandler(this.btnRaise_Click);
             // 
-            // colTitle
+            // btnAddMusic
             // 
-            this.colTitle.HeaderText = "Title";
-            this.colTitle.Name = "colTitle";
-            // 
-            // colArtist
-            // 
-            this.colArtist.HeaderText = "Artist";
-            this.colArtist.Name = "colArtist";
-            // 
-            // colYear
-            // 
-            this.colYear.HeaderText = "Year";
-            this.colYear.Name = "colYear";
-            // 
-            // colAlbum
-            // 
-            this.colAlbum.HeaderText = "Album";
-            this.colAlbum.Name = "colAlbum";
-            // 
-            // colGenre
-            // 
-            this.colGenre.HeaderText = "Genre";
-            this.colGenre.Name = "colGenre";
-            // 
-            // colFileName
-            // 
-            this.colFileName.HeaderText = "File Name";
-            this.colFileName.Name = "colFileName";
-            this.colFileName.Width = 200;
+            this.btnAddMusic.Location = new System.Drawing.Point(529, 459);
+            this.btnAddMusic.Name = "btnAddMusic";
+            this.btnAddMusic.Size = new System.Drawing.Size(75, 23);
+            this.btnAddMusic.TabIndex = 13;
+            this.btnAddMusic.Text = "Add Music...";
+            this.btnAddMusic.UseVisualStyleBackColor = true;
+            this.btnAddMusic.Click += new System.EventHandler(this.btnAddMusic_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 510);
+            this.Controls.Add(this.btnAddMusic);
             this.Controls.Add(this.grpVolume);
             this.Controls.Add(this.btnLoadMusic);
             this.Controls.Add(this.lblMusicFilePath);
@@ -270,6 +290,7 @@
             this.Controls.Add(this.grpMusicControl);
             this.Name = "Form1";
             this.Text = "Music Player";
+            this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMusicControl.ResumeLayout(false);
@@ -306,6 +327,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colAlbum;
         private System.Windows.Forms.DataGridViewTextBoxColumn colGenre;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFilePath;
+        private System.Windows.Forms.Button btnAddMusic;
     }
 }
 

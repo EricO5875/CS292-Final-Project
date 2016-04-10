@@ -15,8 +15,9 @@ namespace CS292_Final_Project
         private string album;
         private string trackNumber;
         private string genre;
+        private string filePath;
 
-        public Music(string fileName, string title, string[] artists, string year, string album, string trackNumber, string[] genres)
+        public Music(string fileName, string title, string[] artists, string year, string album, string trackNumber, string[] genres, string filePath)
         {
             this.fileName = fileName;
             this.title = title;
@@ -25,6 +26,7 @@ namespace CS292_Final_Project
             {
                 artist = artists[i] + ", ";
             }
+            artist = artist.Substring(0, artist.Length - 2);
 
             this.year = year;
             this.album = album;
@@ -35,6 +37,9 @@ namespace CS292_Final_Project
                 genre = genres[i] + ", ";
 
             }
+            genre = genre.Substring(0, genre.Length - 2);
+            this.filePath = filePath;
+
         }
 
         public string FileName
@@ -73,10 +78,16 @@ namespace CS292_Final_Project
             set { trackNumber = value; }
         }
 
-        public string Genre
+        public string Genres
         {
             get { return genre; }
             set { genre = value; }
+        }
+
+        public string FilePath
+        {
+            get { return filePath; }
+            set { filePath = value; }
         }
     } 
 }
