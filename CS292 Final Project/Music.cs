@@ -22,22 +22,28 @@ namespace CS292_Final_Project
             this.fileName = fileName;
             this.title = title;
 
-            for (int i = 0; i < artists.Length; i++)
+            if (artists != null)
             {
-                artist = artists[i] + ", ";
+                for (int i = 0; i < artists.Length; i++)
+                {
+                    artist = artists[i] + ", ";
+                }
+                artist = artist.Substring(0, artist.Length - 2);
             }
-            artist = artist.Substring(0, artist.Length - 2);
 
             this.year = year;
             this.album = album;
             this.trackNumber = trackNumber;
+            this.genre = "";
+            //if (genres != null)
+            //{
+            //    for (int i = 0; i < genre.Length; i++)
+            //    {
+            //        genre = genres[i] + ", ";
 
-            for (int i = 0; i < genre.Length; i++)
-            {
-                genre = genres[i] + ", ";
-
-            }
-            genre = genre.Substring(0, genre.Length - 2);
+            //    }
+            //}
+            //genre = genre.Substring(0, genre.Length - 2);
             this.filePath = filePath;
 
         }

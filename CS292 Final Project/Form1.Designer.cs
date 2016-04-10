@@ -34,7 +34,7 @@
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.dgv = new System.Windows.Forms.DataGridView();
+            this.dgvMusic = new System.Windows.Forms.DataGridView();
             this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colArtist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,9 +52,12 @@
             this.btnLower = new System.Windows.Forms.Button();
             this.btnRaise = new System.Windows.Forms.Button();
             this.btnAddMusic = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.grpMusicControl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMusic)).BeginInit();
             this.grpVolume.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkShuffle
@@ -117,13 +120,13 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // dgv
+            // dgvMusic
             // 
-            this.dgv.AllowUserToAddRows = false;
-            this.dgv.AllowUserToDeleteRows = false;
-            this.dgv.AllowUserToResizeRows = false;
-            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvMusic.AllowUserToAddRows = false;
+            this.dgvMusic.AllowUserToDeleteRows = false;
+            this.dgvMusic.AllowUserToResizeRows = false;
+            this.dgvMusic.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMusic.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTitle,
             this.colArtist,
             this.colYear,
@@ -131,11 +134,11 @@
             this.colGenre,
             this.colFileName,
             this.colFilePath});
-            this.dgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgv.Location = new System.Drawing.Point(12, 109);
-            this.dgv.Name = "dgv";
-            this.dgv.Size = new System.Drawing.Size(763, 245);
-            this.dgv.TabIndex = 6;
+            this.dgvMusic.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvMusic.Location = new System.Drawing.Point(12, 109);
+            this.dgvMusic.Name = "dgvMusic";
+            this.dgvMusic.Size = new System.Drawing.Size(763, 245);
+            this.dgvMusic.TabIndex = 6;
             // 
             // colTitle
             // 
@@ -238,7 +241,7 @@
             this.lblVolume.Name = "lblVolume";
             this.lblVolume.Size = new System.Drawing.Size(27, 13);
             this.lblVolume.TabIndex = 2;
-            this.lblVolume.Text = "50%";
+            this.lblVolume.Text = "25%";
             // 
             // btnLower
             // 
@@ -249,6 +252,7 @@
             this.btnLower.TabIndex = 1;
             this.btnLower.Text = "Lower Volume";
             this.btnLower.UseVisualStyleBackColor = true;
+            this.btnLower.Click += new System.EventHandler(this.btnLower_Click);
             // 
             // btnRaise
             // 
@@ -271,11 +275,27 @@
             this.btnAddMusic.UseVisualStyleBackColor = true;
             this.btnAddMusic.Click += new System.EventHandler(this.btnAddMusic_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 488);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(786, 22);
+            this.statusStrip1.TabIndex = 14;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 17);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 510);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnAddMusic);
             this.Controls.Add(this.grpVolume);
             this.Controls.Add(this.btnLoadMusic);
@@ -283,7 +303,7 @@
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.btnEditInfo);
-            this.Controls.Add(this.dgv);
+            this.Controls.Add(this.dgvMusic);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.btnPlay);
@@ -295,9 +315,11 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpMusicControl.ResumeLayout(false);
             this.grpMusicControl.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMusic)).EndInit();
             this.grpVolume.ResumeLayout(false);
             this.grpVolume.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,7 +333,7 @@
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.DataGridView dgv;
+        private System.Windows.Forms.DataGridView dgvMusic;
         private System.Windows.Forms.Button btnEditInfo;
         private System.Windows.Forms.TextBox txtFilePath;
         private System.Windows.Forms.Button btnBrowse;
@@ -329,6 +351,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFilePath;
         private System.Windows.Forms.Button btnAddMusic;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
 

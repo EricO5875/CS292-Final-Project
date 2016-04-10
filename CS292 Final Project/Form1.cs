@@ -35,16 +35,16 @@ namespace CS292_Final_Project
                 waveOutDevice.Stop();
             } catch { }
             waveOutDevice = new WaveOut();
-            Console.WriteLine(dgv.Rows.GetRowCount(DataGridViewElementStates.Selected));
-            int rowIndex = dgv.SelectedCells[0].RowIndex;
-            DataGridViewRow selectedRow = dgv.Rows[rowIndex];
+            Console.WriteLine(dgvMusic.Rows.GetRowCount(DataGridViewElementStates.Selected));
+            int rowIndex = dgvMusic.SelectedCells[0].RowIndex;
+            DataGridViewRow selectedRow = dgvMusic.Rows[rowIndex];
             Console.WriteLine(txtFilePath.Text + "\\" + selectedRow.Cells["colFileName"].Value.ToString());
             try {
                 audioFileReader = new AudioFileReader(txtFilePath.Text + "\\" + selectedRow.Cells["colFileName"].Value.ToString());
                 
                 waveOutDevice.Init(audioFileReader);
                 waveOutDevice.Play();
-                wave.Volume = 0.5f;
+                waveOutDevice.Volume = 0.25f;
                 btnRaise.Enabled = true;
                 btnLower.Enabled = true;
             } catch {
@@ -65,7 +65,7 @@ namespace CS292_Final_Project
 
         private void btnLoadMusic_Click(object sender, EventArgs e)
         {
-            dgv.ClearSelection();
+            dgvMusic.ClearSelection();
             string fileName = "";
             try {
                 var musicFiles = Directory.EnumerateFiles(txtFilePath.Text, "*.mp3");
@@ -86,6 +86,7 @@ namespace CS292_Final_Project
 
                     music.Add(temp);
                     displayData(temp);
+                    Console.WriteLine("Done");
                 }
             } catch
             {
@@ -101,21 +102,22 @@ namespace CS292_Final_Project
             //{
             //    genreString += s + ", ";
             //}
-            //if (!genreString.Equals("")) { 
-            //    genreString = genreString.Substring(0, genreString.Length - 2);
-            //}
+            if (!genreString.Equals(""))
+            {
+                genreString = genreString.Substring(0, genreString.Length - 2);
+            }
 
-            //string artistString = "";
+            string artistString = "";
             //foreach (string s in temp.Artist)
             //{
             //    artistString += s + ", ";
             //}
-            //if (!artistString.Equals(""))
-            //{
-            //    artistString = artistString.Substring(0, artistString.Length - 2);
-            //}
-            //string[] row = new string[] { temp.Title, artistString, temp.Year, temp.Album, genreString, temp.FileName, temp.FilePath };
-            //dgv.Rows.Add(row);
+            if (!artistString.Equals(""))
+            {
+                artistString = artistString.Substring(0, artistString.Length - 2);
+            }
+            string[] row = new string[] { temp.Title, artistString, temp.Year, temp.Album, genreString, temp.FileName, temp.FilePath };
+            dgvMusic.Rows.Add(row);
 
         }
 
@@ -147,13 +149,31 @@ namespace CS292_Final_Project
         private void btnEditInfo_Click(object sender, EventArgs e)
         {
             dataChanged = true;
-            dgv.EditMode = DataGridViewEditMode.EditOnEnter;
+            dgvMusic.EditMode = DataGridViewEditMode.EditOnEnter;
         }
 
         private void btnRaise_Click(object sender, EventArgs e)
         {
-            wave.Volume += .01f;
-            lblVolume.Text = "" + (int.Parse(lblVolume.Text.TrimEnd('%')) + 1);
+            lblStatus.Text = "";
+            try {
+                waveOutDevice.Volume += .01f;
+                lblVolume.Text = "" + (int.Parse(lblVolume.Text.TrimEnd('%')) + 1) + "%";
+            } catch
+            {
+                lblStatus.Text = "Can't raise volume above 100!";
+            }
+        }
+ 
+        private void btnLower_Click(object sender, EventArgs e)
+        {
+            lblStatus.Text = "";
+            try {
+                waveOutDevice.Volume -= .01f;
+                lblVolume.Text = "" + (int.Parse(lblVolume.Text.TrimEnd('%')) - 1) + "%";
+            } catch
+            {
+                lblStatus.Text = "Can't lower volume below 0!";
+            }
         }
 
         private void Shuffle()
