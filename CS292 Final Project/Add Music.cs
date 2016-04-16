@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CS292_Final_Project
 {
     public partial class Add_Music : Form
     {
-        public String[] musicToAdd;
         public Add_Music()
         {
             InitializeComponent();
@@ -44,12 +36,15 @@ namespace CS292_Final_Project
         private void btnAddMusic_Click(object sender, EventArgs e)
         {
             int count = 0;
-            foreach(int i in chkLstAddMusic.CheckedIndices)
+            string filePath = txtFilePath.Text;
+            Program.musicToAdd.Add(filePath);
+            foreach(object itemChecked in chkLstAddMusic.CheckedItems)
             {
-                musicToAdd[count] = chkLstAddMusic.Items[i].ToString();
-                Console.WriteLine(chkLstAddMusic.Items[i].ToString());
+                Program.musicToAdd.Add((string)itemChecked);
+                Console.WriteLine(itemChecked.ToString());
                 count++;
             }
+            this.Close();
         }
     }
 }

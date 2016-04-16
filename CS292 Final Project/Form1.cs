@@ -18,13 +18,12 @@ namespace CS292_Final_Project
         {
             InitializeComponent();
         }
-
+        string filePath = "";
         DataTable dt = new DataTable();
         List<Music> music = new List<Music>();
         bool dataChanged = false;
         IWavePlayer waveOutDevice;
         AudioFileReader audioFileReader;
-        WaveChannel32 wave;
         bool musicAdded = false;
 
         TagLib.File tagFile = TagLib.File.Create("Green Forest.mp3");
@@ -35,13 +34,8 @@ namespace CS292_Final_Project
                 waveOutDevice.Stop();
             } catch { }
             waveOutDevice = new WaveOut();
-            Console.WriteLine(dgvMusic.Rows.GetRowCount(DataGridViewElementStates.Selected));
-            int rowIndex = dgvMusic.SelectedCells[0].RowIndex;
-            DataGridViewRow selectedRow = dgvMusic.Rows[rowIndex];
-            Console.WriteLine(txtFilePath.Text + "\\" + selectedRow.Cells["colFileName"].Value.ToString());
             try {
-                audioFileReader = new AudioFileReader(txtFilePath.Text + "\\" + selectedRow.Cells["colFileName"].Value.ToString());
-                
+                audioFileReader = new AudioFileReader(filePath);
                 waveOutDevice.Init(audioFileReader);
                 waveOutDevice.Play();
                 waveOutDevice.Volume = 0.25f;
@@ -59,40 +53,9 @@ namespace CS292_Final_Project
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            btnRaise.Enabled = false;
+            btnLower.Enabled = false;
 
-
-        }
-
-        private void btnLoadMusic_Click(object sender, EventArgs e)
-        {
-            dgvMusic.ClearSelection();
-            string fileName = "";
-            try {
-                var musicFiles = Directory.EnumerateFiles(txtFilePath.Text, "*.mp3");
-                foreach (string s in musicFiles)
-                {
-                    TagLib.File tagFile = TagLib.File.Create(s);
-                    Console.WriteLine(txtFilePath.Text.Length);
-                    Console.WriteLine(s.Length);
-                    fileName = s.Substring(txtFilePath.Text.Length + 1, s.Length - txtFilePath.Text.Length - 1);
-                    string title = tagFile.Tag.Title;
-                    string[] artist = tagFile.Tag.Performers;
-                    string year = tagFile.Tag.Year.ToString();
-                    string album = tagFile.Tag.Album;
-                    string[] genre = tagFile.Tag.Genres;
-                    string trackNumber = tagFile.Tag.Track.ToString();
-                    string filePath = txtFilePath.Text;
-                    Music temp = new Music(fileName, title, artist, year, album, trackNumber, genre, filePath);
-
-                    music.Add(temp);
-                    displayData(temp);
-                    Console.WriteLine("Done");
-                }
-            } catch
-            {
-                Console.WriteLine("Error at " + fileName);
-
-            }
         }
 
         private void displayData(Music temp)
@@ -193,7 +156,26 @@ namespace CS292_Final_Project
 
         private void AddMusic()
         {
-            
+            string fileName = "";
+            string folderPath = Program.musicToAdd.ElementAt(0);
+            for (int i = 1; i < Program.musicToAdd.Count; i++)
+            {
+                string file = Program.musicToAdd[i];
+                TagLib.File tagFile = TagLib.File.Create(folderPath + "\\" + file);
+                fileName = file;
+                string title = tagFile.Tag.Title;
+                string[] artist = tagFile.Tag.Performers;
+                string year = tagFile.Tag.Year.ToString();
+                string album = tagFile.Tag.Album;
+                string[] genre = tagFile.Tag.Genres;
+                string trackNumber = tagFile.Tag.Track.ToString();
+                Music temp = new Music(fileName, title, artist, year, album, trackNumber, genre, folderPath + "\\" + file);
+
+                music.Add(temp);
+                displayData(temp);
+                Console.WriteLine("Done");
+            }
+            Program.musicToAdd.Clear();
         }
 
         private void btnAddMusic_Click(object sender, EventArgs e)
@@ -210,6 +192,41 @@ namespace CS292_Final_Project
             {
                 AddMusic();
                 musicAdded = false;
+            }
+        }
+
+        private void dgvMusic_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvMusic.SelectedCells.Count > 0)
+            {
+                int selectedRowIndex = dgvMusic.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvMusic.Rows[selectedRowIndex];
+                filePath = selectedRow.Cells["colFilePath"].Value.ToString();
+            }
+        }
+
+        private void btnRaise_Click_1(object sender, EventArgs e)
+        {
+            try 
+            {
+                waveOutDevice.Volume += .01f;
+                lblVolume.Text = (int.Parse(lblVolume.Text.Trim('%')) + 1).ToString() + "%";
+            } catch
+            {
+                lblStatus.Text = "Cannot raise above 100.";
+            }
+        }
+
+        private void btnLower_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                waveOutDevice.Volume -= .01f;
+                lblVolume.Text = (int.Parse(lblVolume.Text.Trim('%')) - 1).ToString() + "%";
+            }
+            catch
+            {
+                lblStatus.Text = "Cannot lower below 0.";
             }
         }
     }
