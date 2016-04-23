@@ -44,12 +44,12 @@
             this.colFilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEditInfo = new System.Windows.Forms.Button();
             this.grpVolume = new System.Windows.Forms.GroupBox();
+            this.btnLower = new System.Windows.Forms.Button();
+            this.btnRaise = new System.Windows.Forms.Button();
             this.lblVolume = new System.Windows.Forms.Label();
             this.btnAddMusic = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnRaise = new System.Windows.Forms.Button();
-            this.btnLower = new System.Windows.Forms.Button();
             this.grpMusicControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMusic)).BeginInit();
             this.grpVolume.SuspendLayout();
@@ -105,6 +105,7 @@
             this.btnPause.TabIndex = 3;
             this.btnPause.Text = "Pause";
             this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // btnExit
             // 
@@ -176,11 +177,11 @@
             // 
             // btnEditInfo
             // 
-            this.btnEditInfo.Location = new System.Drawing.Point(135, 334);
+            this.btnEditInfo.Location = new System.Drawing.Point(474, 362);
             this.btnEditInfo.Name = "btnEditInfo";
             this.btnEditInfo.Size = new System.Drawing.Size(75, 23);
             this.btnEditInfo.TabIndex = 7;
-            this.btnEditInfo.Text = "Edit Info";
+            this.btnEditInfo.Text = "Edit Info...";
             this.btnEditInfo.UseVisualStyleBackColor = true;
             this.btnEditInfo.Click += new System.EventHandler(this.btnEditInfo_Click);
             // 
@@ -196,6 +197,26 @@
             this.grpVolume.TabStop = false;
             this.grpVolume.Text = "Volume";
             // 
+            // btnLower
+            // 
+            this.btnLower.Location = new System.Drawing.Point(141, 18);
+            this.btnLower.Name = "btnLower";
+            this.btnLower.Size = new System.Drawing.Size(75, 23);
+            this.btnLower.TabIndex = 4;
+            this.btnLower.Text = "Lower";
+            this.btnLower.UseVisualStyleBackColor = true;
+            this.btnLower.Click += new System.EventHandler(this.btnLower_Click_1);
+            // 
+            // btnRaise
+            // 
+            this.btnRaise.Location = new System.Drawing.Point(27, 18);
+            this.btnRaise.Name = "btnRaise";
+            this.btnRaise.Size = new System.Drawing.Size(75, 23);
+            this.btnRaise.TabIndex = 3;
+            this.btnRaise.Text = "Raise";
+            this.btnRaise.UseVisualStyleBackColor = true;
+            this.btnRaise.Click += new System.EventHandler(this.btnRaise_Click_1);
+            // 
             // lblVolume
             // 
             this.lblVolume.AutoSize = true;
@@ -207,7 +228,7 @@
             // 
             // btnAddMusic
             // 
-            this.btnAddMusic.Location = new System.Drawing.Point(528, 362);
+            this.btnAddMusic.Location = new System.Drawing.Point(588, 362);
             this.btnAddMusic.Name = "btnAddMusic";
             this.btnAddMusic.Size = new System.Drawing.Size(75, 23);
             this.btnAddMusic.TabIndex = 13;
@@ -229,26 +250,6 @@
             // 
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 17);
-            // 
-            // btnRaise
-            // 
-            this.btnRaise.Location = new System.Drawing.Point(27, 18);
-            this.btnRaise.Name = "btnRaise";
-            this.btnRaise.Size = new System.Drawing.Size(75, 23);
-            this.btnRaise.TabIndex = 3;
-            this.btnRaise.Text = "Raise";
-            this.btnRaise.UseVisualStyleBackColor = true;
-            this.btnRaise.Click += new System.EventHandler(this.btnRaise_Click_1);
-            // 
-            // btnLower
-            // 
-            this.btnLower.Location = new System.Drawing.Point(141, 18);
-            this.btnLower.Name = "btnLower";
-            this.btnLower.Size = new System.Drawing.Size(75, 23);
-            this.btnLower.TabIndex = 4;
-            this.btnLower.Text = "Lower";
-            this.btnLower.UseVisualStyleBackColor = true;
-            this.btnLower.Click += new System.EventHandler(this.btnLower_Click_1);
             // 
             // Form1
             // 

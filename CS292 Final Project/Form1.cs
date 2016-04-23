@@ -1,14 +1,10 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace CS292_Final_Project
 {
@@ -24,25 +20,44 @@ namespace CS292_Final_Project
         bool dataChanged = false;
         IWavePlayer waveOutDevice;
         AudioFileReader audioFileReader;
+        
         bool musicAdded = false;
+        bool paused = false;
 
         TagLib.File tagFile = TagLib.File.Create("Green Forest.mp3");
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            try {
-                waveOutDevice.Stop();
-            } catch { }
-            waveOutDevice = new WaveOut();
-            try {
-                audioFileReader = new AudioFileReader(filePath);
-                waveOutDevice.Init(audioFileReader);
+            if (!paused)
+            {
+                //This will stop the song if one is playing.
+                try
+                {
+                    waveOutDevice.Stop();
+                }
+                catch
+                {
+
+                }
+                waveOutDevice = new WaveOut();
+                try
+                {
+                    audioFileReader = new AudioFileReader(filePath);
+                    waveOutDevice.Init(audioFileReader);
+                    waveOutDevice.Play();
+                    waveOutDevice.Volume = 0.25f;
+                    
+                    btnRaise.Enabled = true;
+                    btnLower.Enabled = true;
+                }
+                catch
+                {
+                    Console.WriteLine("Failed to play song.");
+                }
+            } else
+            {
                 waveOutDevice.Play();
-                waveOutDevice.Volume = 0.25f;
-                btnRaise.Enabled = true;
-                btnLower.Enabled = true;
-            } catch {
-                Console.WriteLine("Failed to play song.");
+                paused = false;
             }
         }
 
@@ -60,6 +75,7 @@ namespace CS292_Final_Project
 
         private void displayData(Music temp)
         {
+            dgvMusic.Rows.Clear();
             string genreString = "";
             //foreach (string s in temp.Genres)
             //{
@@ -86,7 +102,7 @@ namespace CS292_Final_Project
 
         private void saveData()
         {
-            foreach(Music m in music)
+            foreach(Music m in Program.musicList)
             {
                 String fileName = m.FileName;
                 String title = m.Title;
@@ -112,7 +128,8 @@ namespace CS292_Final_Project
         private void btnEditInfo_Click(object sender, EventArgs e)
         {
             dataChanged = true;
-            dgvMusic.EditMode = DataGridViewEditMode.EditOnEnter;
+            Edit_Music edit = new Edit_Music();
+            edit.Show();
         }
 
         private void btnRaise_Click(object sender, EventArgs e)
@@ -171,7 +188,7 @@ namespace CS292_Final_Project
                 string trackNumber = tagFile.Tag.Track.ToString();
                 Music temp = new Music(fileName, title, artist, year, album, trackNumber, genre, folderPath + "\\" + file);
 
-                music.Add(temp);
+                Program.musicList.Add(temp);
                 displayData(temp);
                 Console.WriteLine("Done");
             }
@@ -202,6 +219,7 @@ namespace CS292_Final_Project
                 int selectedRowIndex = dgvMusic.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dgvMusic.Rows[selectedRowIndex];
                 filePath = selectedRow.Cells["colFilePath"].Value.ToString();
+                paused = false;
             }
         }
 
@@ -228,6 +246,12 @@ namespace CS292_Final_Project
             {
                 lblStatus.Text = "Cannot lower below 0.";
             }
+        }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            waveOutDevice.Pause();
+            paused = true;
         }
     }
 }
