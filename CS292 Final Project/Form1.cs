@@ -10,50 +10,62 @@ namespace CS292_Final_Project
 {
     public partial class Form1 : Form
     {
+        IWavePlayer waveOutDevice;
+        Mp3FileReader mp3;
+
+        bool stopped = false;
+        bool musicAdded = false;
+        bool paused = false;
+        string filePath;
+
+        MusicDBUtils dbUtils = new MusicDBUtils();
+
         public Form1()
         {
             InitializeComponent();
         }
-        string filePath = "";
-        DataTable dt = new DataTable();
-        List<Music> music = new List<Music>();
-        bool dataChanged = false;
-        IWavePlayer waveOutDevice;
-        AudioFileReader audioFileReader;
-        
-        bool musicAdded = false;
-        bool paused = false;
-
-        TagLib.File tagFile = TagLib.File.Create("Green Forest.mp3");
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            Play(filePath);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            waveOutDevice.Pause();
+            paused = true;
+        }
+
+
+        private void Play(string filePath)
+        {
+            Console.WriteLine("Playing Song!");
             if (!paused)
             {
-                //This will stop the song if one is playing.
                 try
                 {
                     waveOutDevice.Stop();
-                }
-                catch
-                {
+                    stopped = true;
+                } catch { }
 
-                }
                 waveOutDevice = new WaveOut();
+
                 try
                 {
-                    audioFileReader = new AudioFileReader(filePath);
-                    waveOutDevice.Init(audioFileReader);
-                    waveOutDevice.Play();
+                    mp3 = new Mp3FileReader(filePath);
+                    waveOutDevice.Init(mp3);
+                    waveOutDevice.PlaybackStopped += new EventHandler<StoppedEventArgs>(WaveOutDevice_PlaybackStopped);
                     waveOutDevice.Volume = 0.25f;
-                    
+                    waveOutDevice.Play();
+
+
                     btnRaise.Enabled = true;
                     btnLower.Enabled = true;
-                }
-                catch
-                {
-                    Console.WriteLine("Failed to play song.");
-                }
+                } catch { }
             } else
             {
                 waveOutDevice.Play();
@@ -61,68 +73,41 @@ namespace CS292_Final_Project
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void WaveOutDevice_PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            this.Close();
+            if (!stopped)
+            {
+                int selectedRowIndex;
+                DataGridViewRow selectedRow;
+                if (dgvMusic.RowCount > dgvMusic.SelectedCells[0].RowIndex + 1)
+                {
+                    selectedRowIndex = dgvMusic.SelectedCells[0].RowIndex + 1;
+                    selectedRow = dgvMusic.Rows[selectedRowIndex];
+                    selectedRow.Selected = true;
+                    filePath = selectedRow.Cells["colFilePath"].Value.ToString();
+                    Play(filePath);
+                } else
+                {
+                    dgvMusic.Rows[0].Selected = true;
+                    selectedRowIndex = dgvMusic.SelectedCells[0].RowIndex;
+                    selectedRow = dgvMusic.Rows[selectedRowIndex];
+                    filePath = selectedRow.Cells["colFilePath"].Value.ToString();
+                    Play(filePath);
+                }
+            }
+            stopped = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             btnRaise.Enabled = false;
             btnLower.Enabled = false;
-
+            displayData();
         }
 
-        private void displayData(Music temp)
+        private void displayData()
         {
-            dgvMusic.Rows.Clear();
-            string genreString = "";
-            //foreach (string s in temp.Genres)
-            //{
-            //    genreString += s + ", ";
-            //}
-            if (!genreString.Equals(""))
-            {
-                genreString = genreString.Substring(0, genreString.Length - 2);
-            }
-
-            string artistString = "";
-            //foreach (string s in temp.Artist)
-            //{
-            //    artistString += s + ", ";
-            //}
-            if (!artistString.Equals(""))
-            {
-                artistString = artistString.Substring(0, artistString.Length - 2);
-            }
-            string[] row = new string[] { temp.Title, artistString, temp.Year, temp.Album, genreString, temp.FileName, temp.FilePath };
-            dgvMusic.Rows.Add(row);
-
-        }
-
-        private void saveData()
-        {
-            foreach(Music m in Program.musicList)
-            {
-                String fileName = m.FileName;
-                String title = m.Title;
-                String artist = m.Artist;
-                String year = m.Year;
-                String album = m.Album;
-                String genre = m.Genres;
-                
-
-            }
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (dataChanged)
-            {
-                MessageBox.Show("There were some changes made to the database.  Would you like to save them?", "", MessageBoxButtons.YesNoCancel);
-                saveData();
-            }
-            
+            dgvMusic.DataSource = dbUtils.GetAllMusic();
         }
 
         private void btnEditInfo_Click(object sender, EventArgs e)
@@ -156,21 +141,6 @@ namespace CS292_Final_Project
             }
         }
 
-        private void Shuffle()
-        {
-            Random rand = new Random();
-            int val1;
-            int val2;
-            for (int i = 0; i < 50; i++)
-            {
-                val1 = rand.Next(music.Count);
-                val2 = rand.Next(music.Count);
-                Music temp = music[val1];
-                music[val1] = music[val2];
-                music[val2] = temp;
-            }
-        }
-
         private void AddMusic()
         {
             string fileName = "";
@@ -187,9 +157,9 @@ namespace CS292_Final_Project
                 string[] genre = tagFile.Tag.Genres;
                 string trackNumber = tagFile.Tag.Track.ToString();
                 Music temp = new Music(fileName, title, artist, year, album, trackNumber, genre, folderPath + "\\" + file);
-
+                dbUtils.Add(temp);
                 Program.musicList.Add(temp);
-                displayData(temp);
+                displayData();
                 Console.WriteLine("Done");
             }
             Program.musicToAdd.Clear();
@@ -199,7 +169,6 @@ namespace CS292_Final_Project
         {
             Add_Music newForm = new Add_Music();
             newForm.Show();
-            //String test = newForm.musicToAdd[0];
             musicAdded = true;
         }
 
@@ -207,18 +176,21 @@ namespace CS292_Final_Project
         {
             if (musicAdded)
             {
-                AddMusic();
-                musicAdded = false;
+                try {
+                    AddMusic();
+                    musicAdded = false;
+                } catch { }
             }
         }
 
         private void dgvMusic_SelectionChanged(object sender, EventArgs e)
         {
+            Console.WriteLine(dgvMusic.SelectedCells.Count);
             if (dgvMusic.SelectedCells.Count > 0)
             {
                 int selectedRowIndex = dgvMusic.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dgvMusic.Rows[selectedRowIndex];
-                filePath = selectedRow.Cells["colFilePath"].Value.ToString();
+                filePath = selectedRow.Cells["FilePath"].Value.ToString();
                 paused = false;
             }
         }
@@ -246,12 +218,6 @@ namespace CS292_Final_Project
             {
                 lblStatus.Text = "Cannot lower below 0.";
             }
-        }
-
-        private void btnPause_Click(object sender, EventArgs e)
-        {
-            waveOutDevice.Pause();
-            paused = true;
         }
     }
 }
