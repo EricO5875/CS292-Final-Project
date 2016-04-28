@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chkShuffle = new System.Windows.Forms.CheckBox();
-            this.chkLoop = new System.Windows.Forms.CheckBox();
-            this.grpMusicControl = new System.Windows.Forms.GroupBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -43,42 +40,15 @@
             this.btnAddMusic = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.grpMusicControl.SuspendLayout();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.grpMusicControl = new System.Windows.Forms.GroupBox();
+            this.radShuffle = new System.Windows.Forms.RadioButton();
+            this.radLoop = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMusic)).BeginInit();
             this.grpVolume.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.grpMusicControl.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // chkShuffle
-            // 
-            this.chkShuffle.AutoSize = true;
-            this.chkShuffle.Location = new System.Drawing.Point(6, 22);
-            this.chkShuffle.Name = "chkShuffle";
-            this.chkShuffle.Size = new System.Drawing.Size(59, 17);
-            this.chkShuffle.TabIndex = 0;
-            this.chkShuffle.Text = "Shuffle";
-            this.chkShuffle.UseVisualStyleBackColor = true;
-            // 
-            // chkLoop
-            // 
-            this.chkLoop.AutoSize = true;
-            this.chkLoop.Location = new System.Drawing.Point(6, 48);
-            this.chkLoop.Name = "chkLoop";
-            this.chkLoop.Size = new System.Drawing.Size(50, 17);
-            this.chkLoop.TabIndex = 1;
-            this.chkLoop.Text = "Loop";
-            this.chkLoop.UseVisualStyleBackColor = true;
-            // 
-            // grpMusicControl
-            // 
-            this.grpMusicControl.Controls.Add(this.chkLoop);
-            this.grpMusicControl.Controls.Add(this.chkShuffle);
-            this.grpMusicControl.Location = new System.Drawing.Point(289, 275);
-            this.grpMusicControl.Name = "grpMusicControl";
-            this.grpMusicControl.Size = new System.Drawing.Size(96, 82);
-            this.grpMusicControl.TabIndex = 1;
-            this.grpMusicControl.TabStop = false;
-            this.grpMusicControl.Text = "Music Control";
             // 
             // btnPlay
             // 
@@ -128,7 +98,7 @@
             // 
             // btnEditInfo
             // 
-            this.btnEditInfo.Location = new System.Drawing.Point(474, 362);
+            this.btnEditInfo.Location = new System.Drawing.Point(588, 348);
             this.btnEditInfo.Name = "btnEditInfo";
             this.btnEditInfo.Size = new System.Drawing.Size(75, 23);
             this.btnEditInfo.TabIndex = 7;
@@ -179,7 +149,7 @@
             // 
             // btnAddMusic
             // 
-            this.btnAddMusic.Location = new System.Drawing.Point(588, 362);
+            this.btnAddMusic.Location = new System.Drawing.Point(474, 348);
             this.btnAddMusic.Name = "btnAddMusic";
             this.btnAddMusic.Size = new System.Drawing.Size(75, 23);
             this.btnAddMusic.TabIndex = 13;
@@ -202,11 +172,55 @@
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 17);
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(530, 377);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 15;
+            this.btnDelete.Text = "Delete Music";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // grpMusicControl
+            // 
+            this.grpMusicControl.Controls.Add(this.radLoop);
+            this.grpMusicControl.Controls.Add(this.radShuffle);
+            this.grpMusicControl.Location = new System.Drawing.Point(289, 275);
+            this.grpMusicControl.Name = "grpMusicControl";
+            this.grpMusicControl.Size = new System.Drawing.Size(96, 82);
+            this.grpMusicControl.TabIndex = 1;
+            this.grpMusicControl.TabStop = false;
+            this.grpMusicControl.Text = "Music Control";
+            // 
+            // radShuffle
+            // 
+            this.radShuffle.AutoSize = true;
+            this.radShuffle.Location = new System.Drawing.Point(11, 24);
+            this.radShuffle.Name = "radShuffle";
+            this.radShuffle.Size = new System.Drawing.Size(58, 17);
+            this.radShuffle.TabIndex = 0;
+            this.radShuffle.TabStop = true;
+            this.radShuffle.Text = "Shuffle";
+            this.radShuffle.UseVisualStyleBackColor = true;
+            // 
+            // radLoop
+            // 
+            this.radLoop.AutoSize = true;
+            this.radLoop.Location = new System.Drawing.Point(11, 47);
+            this.radLoop.Name = "radLoop";
+            this.radLoop.Size = new System.Drawing.Size(49, 17);
+            this.radLoop.TabIndex = 1;
+            this.radLoop.TabStop = true;
+            this.radLoop.Text = "Loop";
+            this.radLoop.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 434);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnAddMusic);
             this.Controls.Add(this.grpVolume);
@@ -220,23 +234,19 @@
             this.Text = "Music Player";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.grpMusicControl.ResumeLayout(false);
-            this.grpMusicControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMusic)).EndInit();
             this.grpVolume.ResumeLayout(false);
             this.grpVolume.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.grpMusicControl.ResumeLayout(false);
+            this.grpMusicControl.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox chkShuffle;
-        private System.Windows.Forms.CheckBox chkLoop;
-        private System.Windows.Forms.GroupBox grpMusicControl;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnExit;
@@ -249,6 +259,10 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button btnLower;
         private System.Windows.Forms.Button btnRaise;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.GroupBox grpMusicControl;
+        private System.Windows.Forms.RadioButton radLoop;
+        private System.Windows.Forms.RadioButton radShuffle;
     }
 }
 

@@ -18,9 +18,6 @@ namespace CS292_Final_Project
         private DataSet dataSet = new DataSet();
         private String sql;
 
-        private const string MUSIC_TABLE = "Music";
-        private const string TITLE_COLUMN = "Title";
-
         private string lastStatus;
 
         public string LastStatus
@@ -28,6 +25,7 @@ namespace CS292_Final_Project
             get { return lastStatus; }
         }
 
+        //Adds music to the database.
         public bool Add(Music m)
         {
             bool isAdded = true;
@@ -49,18 +47,34 @@ namespace CS292_Final_Project
             return true;
         }
 
-        public bool Edit(string title, string artist, int year, string album, string genre)
+        //Edits the information in the database.
+        public bool Edit(string title, string[] artists, int year, string album, string[] genres, string filePath)
         {
             bool isEdited = true;
 
-            sql = "UPDATE MUSIC SET Title = " + title + ", Artist = " + artist + ", Year = " + year + ", Album = " + album + ", Genre = " + genre;
+            string artist = "";
+            if (artists.Length != 0)
+            {
+                foreach(string s in artists)
+                {
+                    artist += s + ", ";
+                }
+                artist = artist.Remove(artist.LastIndexOf(','));
+            }
+
+            string genre = "";
+            if (genres.Length != 0)
+            {
+                foreach (string s in genres)
+                {
+                    genre += s + ", ";
+                }
+                genre = genre.Remove(genre.LastIndexOf(','));
+            }
+
+            sql = "UPDATE MUSIC SET Title = '" + title + "', Artist = '" + artist + "', Year = " + year + ", Album = '" + album + "', Genre = '" + genre + "' WHERE FilePath = '" + filePath + "'";
 
             command = new SQLiteCommand(sql, connection);
-            command.Parameters.AddWithValue("Title", title);
-            command.Parameters.AddWithValue("Artist", artist);
-            command.Parameters.AddWithValue("Year", year);
-            command.Parameters.AddWithValue("Album", album);
-            command.Parameters.AddWithValue("Genre", genre);
 
             if (!UpdateDatabase(command))
             {
@@ -73,7 +87,29 @@ namespace CS292_Final_Project
 
             return isEdited;
         }
+
+        //Removes information from the database.
+        public bool Delete(string filePath)
+        {
+            bool isDeleted = true;
+
+            sql = "DELETE FROM Music WHERE FilePath = '" + filePath + "'";
+
+            command = new SQLiteCommand(sql, connection);
+
+            if (!UpdateDatabase(command))
+            {
+                isDeleted = false;
+                lastStatus = "Error removing song.";
+            } else
+            {
+                lastStatus = "Song removed.";
+            }
+
+            return isDeleted;
+        }
         
+        //Returns all values in database.
         public DataTable GetAllMusic()
         {
             connection.Open();
@@ -87,6 +123,7 @@ namespace CS292_Final_Project
             return dataSet.Tables[0];
         }
 
+        //Updates the database with respective command.
         public bool UpdateDatabase(SQLiteCommand cmd)
         {
             bool result;

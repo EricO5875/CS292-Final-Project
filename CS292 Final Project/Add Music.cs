@@ -11,6 +11,7 @@ namespace CS292_Final_Project
             InitializeComponent();
         }
 
+        //Loads up the file names of all the mp3 files in the given directory.
         private void btnLoadMusic_Click(object sender, EventArgs e)
         {
             string fileName = "";
@@ -33,6 +34,7 @@ namespace CS292_Final_Project
             }
         }
 
+        //Adds the selected songs to a list to be added to the database.
         private void btnAddMusic_Click(object sender, EventArgs e)
         {
             int count = 0;

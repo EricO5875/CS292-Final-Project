@@ -11,13 +11,12 @@ namespace CS292_Final_Project
         private string fileName;
         private string title;
         private string artist;
-        private string year;
+        private int year;
         private string album;
-        private string trackNumber;
         private string genre;
         private string filePath;
 
-        public Music(string fileName, string title, string[] artists, string year, string album, string trackNumber, string[] genres, string filePath)
+        public Music(string fileName, string title, string[] artists, int year, string album, string[] genres, string filePath)
         {
             this.fileName = fileName;
             this.title = title;
@@ -33,7 +32,6 @@ namespace CS292_Final_Project
 
             this.year = year;
             this.album = album;
-            this.trackNumber = trackNumber;
             this.genre = "";
             //if (genres != null)
             //{
@@ -66,7 +64,7 @@ namespace CS292_Final_Project
             set { artist = value; }
         }
 
-        public string Year
+        public int Year
         {
             get { return year; }
             set { year = value; }
@@ -76,12 +74,6 @@ namespace CS292_Final_Project
         {
             get { return album; }
             set { album = value; }
-        }
-
-        public string TrackNumber
-        {
-            get { return trackNumber; }
-            set { trackNumber = value; }
         }
 
         public string Genres

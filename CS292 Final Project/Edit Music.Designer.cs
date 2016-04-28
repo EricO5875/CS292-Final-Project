@@ -29,19 +29,11 @@
         private void InitializeComponent()
         {
             this.dgvMusic = new System.Windows.Forms.DataGridView();
-            this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colArtist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAlbum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGenre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtArtist = new System.Windows.Forms.TextBox();
             this.txtYear = new System.Windows.Forms.TextBox();
             this.txtAlbum = new System.Windows.Forms.TextBox();
             this.txtGenre = new System.Windows.Forms.TextBox();
-            this.txtFileName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,7 +43,11 @@
             this.label8 = new System.Windows.Forms.Label();
             this.lblFilePath = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
+            this.lblFileName = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMusic)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvMusic
@@ -60,14 +56,6 @@
             this.dgvMusic.AllowUserToDeleteRows = false;
             this.dgvMusic.AllowUserToResizeRows = false;
             this.dgvMusic.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMusic.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colTitle,
-            this.colArtist,
-            this.colYear,
-            this.colAlbum,
-            this.colGenre,
-            this.colFileName,
-            this.colFilePath});
             this.dgvMusic.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvMusic.Location = new System.Drawing.Point(12, 12);
             this.dgvMusic.Name = "dgvMusic";
@@ -75,49 +63,6 @@
             this.dgvMusic.Size = new System.Drawing.Size(763, 245);
             this.dgvMusic.TabIndex = 7;
             this.dgvMusic.SelectionChanged += new System.EventHandler(this.dgvMusic_SelectionChanged);
-            // 
-            // colTitle
-            // 
-            this.colTitle.HeaderText = "Title";
-            this.colTitle.Name = "colTitle";
-            this.colTitle.ReadOnly = true;
-            // 
-            // colArtist
-            // 
-            this.colArtist.HeaderText = "Artist";
-            this.colArtist.Name = "colArtist";
-            this.colArtist.ReadOnly = true;
-            // 
-            // colYear
-            // 
-            this.colYear.HeaderText = "Year";
-            this.colYear.Name = "colYear";
-            this.colYear.ReadOnly = true;
-            // 
-            // colAlbum
-            // 
-            this.colAlbum.HeaderText = "Album";
-            this.colAlbum.Name = "colAlbum";
-            this.colAlbum.ReadOnly = true;
-            // 
-            // colGenre
-            // 
-            this.colGenre.HeaderText = "Genre";
-            this.colGenre.Name = "colGenre";
-            this.colGenre.ReadOnly = true;
-            // 
-            // colFileName
-            // 
-            this.colFileName.HeaderText = "File Name";
-            this.colFileName.Name = "colFileName";
-            this.colFileName.ReadOnly = true;
-            this.colFileName.Width = 200;
-            // 
-            // colFilePath
-            // 
-            this.colFilePath.HeaderText = "File Path";
-            this.colFilePath.Name = "colFilePath";
-            this.colFilePath.ReadOnly = true;
             // 
             // txtTitle
             // 
@@ -153,13 +98,6 @@
             this.txtGenre.Name = "txtGenre";
             this.txtGenre.Size = new System.Drawing.Size(323, 20);
             this.txtGenre.TabIndex = 12;
-            // 
-            // txtFileName
-            // 
-            this.txtFileName.Location = new System.Drawing.Point(249, 420);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(323, 20);
-            this.txtFileName.TabIndex = 13;
             // 
             // label1
             // 
@@ -242,11 +180,36 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // lblFileName
+            // 
+            this.lblFileName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblFileName.Location = new System.Drawing.Point(249, 422);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(323, 23);
+            this.lblFileName.TabIndex = 25;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 511);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(791, 22);
+            this.statusStrip1.TabIndex = 26;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 17);
+            // 
             // Edit_Music
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(791, 533);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblFilePath);
             this.Controls.Add(this.label8);
@@ -256,7 +219,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.txtGenre);
             this.Controls.Add(this.txtAlbum);
             this.Controls.Add(this.txtYear);
@@ -267,6 +229,8 @@
             this.Text = "Edit Music";
             this.Load += new System.EventHandler(this.Edit_Music_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMusic)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,19 +239,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvMusic;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colArtist;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colYear;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAlbum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colGenre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFileName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFilePath;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtArtist;
         private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.TextBox txtAlbum;
         private System.Windows.Forms.TextBox txtGenre;
-        private System.Windows.Forms.TextBox txtFileName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -297,5 +253,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblFilePath;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblFileName;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
     }
 }
